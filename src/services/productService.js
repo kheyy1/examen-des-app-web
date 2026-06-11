@@ -1,62 +1,39 @@
-// services/productService.js — Servicio CRUD simulado con localStorage
-// Los productos se precargan desde products.json y se gestionan en localStorage
+// services/productService.js — CRUD de productos contra MockAPI
+// Reemplaza el antiguo servicio basado en localStorage
 
-const STORAGE_KEY = 'cafe_aroma_products'
+const BASE_URL = 'https://6a29de33f59cb8f65f1dad1f.mockapi.io/productos'
 
-/**
- * Carga productos desde localStorage.
- * Si no existen aún, los inicializa desde el JSON externo.
- * @returns {Promise<Array>}
- */
+
 export async function getProducts() {
-  const stored = localStorage.getItem(STORAGE_KEY)
-  if (stored) {
-    return JSON.parse(stored)
-  }
-  // Primera vez: cargar desde el JSON y guardar en localStorage
-  const res = await fetch('/data/products.json')
-  const products = await res.json()
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(products))
-  return products
+  const res = await fetch(BASE_URL)
+  if (!res.ok) throw new Error('Error al obtener productos')
+  return res.json()
 }
 
-/**
- * Guarda un nuevo producto en localStorage.
- * Le asigna un ID único basado en la fecha actual.
- * @param {Object} product
- * @returns {Promise<Array>} lista actualizada
- */
+
 export async function addProduct(product) {
-  const products = await getProducts()
-  const newProduct = { ...product, id: Date.now() }
-  products.push(newProduct)
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(products))
-  return products
+  const res = await fetch(BASE_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(product)
+  })
+  if (!res.ok) throw new Error('Error al crear producto')
+  return res.json()
 }
 
-/**
- * Edita un producto existente buscándolo por ID.
- * @param {Object} updatedProduct
- * @returns {Promise<Array>} lista actualizada
- */
-export async function updateProduct(updatedProduct) {
-  const products = await getProducts()
-  const index = products.findIndex(p => p.id === updatedProduct.id)
-  if (index !== -1) {
-    products[index] = updatedProduct
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(products))
-  }
-  return products
+
+export async function updateProduct(product) {
+  const res = await fetch(`${BASE_URL}/${product.id}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(product)
+  })
+  if (!res.ok) throw new Error('Error al actualizar producto')
+  return res.json()
 }
 
-/**
- * Elimina un producto por ID.
- * @param {number} id
- * @returns {Promise<Array>} lista actualizada
- */
+
 export async function deleteProduct(id) {
-  const products = await getProducts()
-  const filtered = products.filter(p => p.id !== id)
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(filtered))
-  return filtered
+  const res = await fetch(`${BASE_URL}/${id}`, { method: 'DELETE' })
+  if (!res.ok) throw new Error('Error al eliminar producto')
 }
