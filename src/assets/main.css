@@ -1,0 +1,38 @@
+/* main.css — Variables y estilos personalizados de Café Aroma */
+
+:root {
+  --cafe-primary:   #3b1e08;
+  --cafe-secondary: #8b5a2b;
+  --cafe-accent:    #d4a96a;
+  --cafe-bg:        #fdf6ec;
+  --cafe-surface:   #fff8f2;
+  --cafe-border:    #e8d5b7;
+  --cafe-text-soft: #7a5c3e;
+}
+
+body { background-color: var(--cafe-bg); font-family: 'Segoe UI', sans-serif; }
+
+.navbar-cafe { background-color: var(--cafe-primary) !important; box-shadow: 0 2px 12px rgba(59,30,8,0.25); }
+.navbar-cafe .navbar-brand { color: var(--cafe-accent) !important; font-size: 1.4rem; font-weight: 700; letter-spacing: 1px; }
+.navbar-cafe .nav-link { color: #e8c99a !important; font-weight: 600; transition: color 0.2s; }
+.navbar-cafe .nav-link:hover, .navbar-cafe .nav-link.active { color: var(--cafe-accent) !important; }
+
+.sidebar { min-height: calc(100vh - 56px); background-color: var(--cafe-surface); border-right: 1px solid var(--cafe-border); padding-top: 1.5rem; }
+.sidebar .nav-link { color: var(--cafe-secondary); border-radius: 8px; margin-bottom: 4px; padding: 0.6rem 1rem; font-weight: 600; transition: background 0.2s, color 0.2s; }
+.sidebar .nav-link:hover, .sidebar .nav-link.active { background-color: rgba(212,169,106,0.15); color: var(--cafe-primary); }
+.sidebar .nav-link i { margin-right: 8px; }
+
+.product-card { border: 1.5px solid var(--cafe-border); border-radius: 14px; overflow: hidden; transition: transform 0.2s, box-shadow 0.2s; background: var(--cafe-surface); }
+.product-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(139,90,43,0.15); }
+.product-card img { height: 160px; object-fit: contain; background: linear-gradient(135deg, #f5e6d0, #ecdbb8); padding: 1rem; width: 100%; }
+
+.btn-cafe { background-color: var(--cafe-primary); color: #f5e6d0; border: none; border-radius: 20px; font-weight: 700; transition: background 0.2s, transform 0.2s; }
+.btn-cafe:hover { background-color: var(--cafe-secondary); color: #fff; transform: translateY(-2px); }
+
+.footer-cafe { background-color: var(--cafe-primary); color: rgba(245,230,208,0.7); font-size: 0.88rem; }
+
+.login-wrapper { min-height: 100vh; background: radial-gradient(ellipse at 20% 50%, rgba(212,169,106,0.18) 0%, transparent 60%), var(--cafe-bg); display: flex; align-items: center; justify-content: center; }
+.login-card { border: 1px solid var(--cafe-border); border-radius: 20px; box-shadow: 0 6px 24px rgba(59,30,8,0.12); background: var(--cafe-surface); }
+
+.table-cafe thead { background-color: var(--cafe-primary); color: #f5e6d0; }
+.badge-categoria { background-color: var(--cafe-accent) !important; color: var(--cafe-primary) !important; font-weight: 700; }
