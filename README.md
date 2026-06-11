@@ -1,9 +1,7 @@
 Instalacion de dependencias: 
 
     npm install
-.
 
-    npm install vue-router bootstrap bootstrap-icons
 
 ## ⚠️ Aviso de Seguridad
 
@@ -40,7 +38,7 @@ El proyecto sigue una arquitectura basada en componentes modulares para facilita
 ![Imagen del sitio principal](https://i.imgur.com/wmdbZRB.png)
 
 ## Comando para clonar
-"git clone https://github.com/kheyy1/segundo-parcial-des-app-web" 
+"git clone https://github.com/kheyy1/examen-des-app-web" 
 
 
 
