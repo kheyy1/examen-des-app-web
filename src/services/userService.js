@@ -1,4 +1,4 @@
-// services/userService.js — CRUD de usuarios contra MockAPI
+// services/userService.js — CRUD de usuarios
 
 const BASE_URL = 'https://6a29de33f59cb8f65f1dad1f.mockapi.io/usuarios'
 

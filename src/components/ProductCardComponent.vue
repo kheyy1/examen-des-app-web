@@ -1,5 +1,4 @@
 <!-- ProductCardComponent.vue — Tarjeta individual de producto -->
-<!-- Recibe un producto por props y emite eventos al padre (editar/eliminar) -->
 <template>
   <div class="product-card h-100">
     <img :src="producto.img" :alt="producto.nombre" />

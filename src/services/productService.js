@@ -1,5 +1,4 @@
-// services/productService.js — CRUD de productos contra MockAPI
-// Reemplaza el antiguo servicio basado en localStorage
+// services/productService.js — CRUD de productos MockAPI
 
 const BASE_URL = 'https://6a29de33f59cb8f65f1dad1f.mockapi.io/productos'
 
