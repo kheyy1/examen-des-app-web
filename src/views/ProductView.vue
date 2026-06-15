@@ -217,13 +217,13 @@ const form = ref({
 
 // Lista de categorías únicas para el filtro
 const categorias = computed(() => {
-  const cats = productos.value.map(p => p.categoria)
+  const cats = (productos.value ?? []).map(p => p.categoria)
   return [...new Set(cats)]
 })
 
 // Productos filtrados por búsqueda y categoría
 const productosFiltrados = computed(() => {
-  return productos.value.filter(p => {
+  return (productos.value ?? []).filter(p => {
     const coincideNombre = p.nombre.toLowerCase().includes(busqueda.value.toLowerCase())
     const coincideCategoria = filtroCategoria.value === '' || p.categoria === filtroCategoria.value
     return coincideNombre && coincideCategoria
@@ -233,7 +233,8 @@ const productosFiltrados = computed(() => {
 // ── Ciclo de vida ─────────────────────────────────────────────
 onMounted(async () => {
   // Carga los productos al montar el componente
-  productos.value = await getProducts()
+  const data = await getProducts()
+  productos.value = Array.isArray(data) ? data : []
 })
 
 // ── Métodos CRUD ─────────────────────────────────────────────
@@ -269,12 +270,21 @@ async function guardarProducto() {
     return
   }
 
+  let resultado
   if (modoEdicion.value) {
     // UPDATE: actualiza el producto existente
-    productos.value = await updateProduct(form.value)
+    resultado = await updateProduct(form.value)
   } else {
     // CREATE: agrega un producto nuevo
-    productos.value = await addProduct(form.value)
+    resultado = await addProduct(form.value)
+  }
+
+  // Si el servicio devuelve la lista completa actualizada, la usamos.
+  if (Array.isArray(resultado)) {
+    productos.value = resultado
+  } else {
+    const data = await getProducts()
+    productos.value = Array.isArray(data) ? data : []
   }
 
   cerrarModal()
@@ -292,8 +302,16 @@ function confirmarEliminar(productoOId) {
 
 async function ejecutarEliminar() {
   // DELETE: elimina el producto por ID
-  productos.value = await deleteProduct(productoAEliminar.value.id)
+  const resultado = await deleteProduct(productoAEliminar.value.id)
+
+  if (Array.isArray(resultado)) {
+    productos.value = resultado
+  } else {
+    const data = await getProducts()
+    productos.value = Array.isArray(data) ? data : []
+  }
+
   mostrarModalEliminar.value = false
   productoAEliminar.value    = null
 }
-</script>
+</script> 
